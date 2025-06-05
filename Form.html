@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>性能カスタム記録フォーム - WE Mechanic</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f5f5f5;
+      padding: 20px;
+    }
+    form {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      max-width: 600px;
+      margin: auto;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+    }
+    label {
+      display: block;
+      margin-top: 12px;
+    }
+    input[type="text"], select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 4px;
+    }
+    .short-field {
+      width: 200px !important;
+      display: block;
+      margin-top: 4px;
+    }
+    .radio-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 5px;
+    }
+    .section {
+      margin-top: 16px;
+    }
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 10px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    #message, #searchResults {
+      text-align: center;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 記録フォーム -->
+  <form id="customForm">
+    <h2>性能カスタム記録フォーム</h2>
+
+    <label>記録者</label>
+    <select name="記録者" class="short-field" required>
+      <option value="">選択してください</option>
+      <option>きつねさん</option>
+      <option>みくしむ</option>
+      <option>アディころん</option>
+      <option>犬乃助</option>
+      <option>野々 太郎</option>
+      <option>如月 こう</option>
+      <option>雨野 れいん</option>
+      <option>ルカ・シャングレット</option>
+      <option>西家 和花</option>
+      <option>瀬尾 奏斗</option>
+      <option>前田 信一</option>
+      <option>水嶋 ミロ</option>
+      <option>Suzuya</option>
+      <option>ふわみみ 苺</option>
+      <option>津出カタギ</option>
+      <option>委員長</option>
+      <option>Nyoki</option>
+      <option>ザブにぃ</option>
+    </select>
+
+    <label>車両番号</label>
+    <input type="text" name="車両番号" class="short-field" required>
+
+    <label>オーナー名</label>
+    <input type="text" name="オーナー名" class="short-field" required>
+
+    <div class="section">
+      <label>エンジン</label>
+      <div class="radio-group">
+        <label><input type="radio" name="エンジン" value="ティア1"> ティア1</label>
+        <label><input type="radio" name="エンジン" value="ティア2"> ティア2</label>
+        <label><input type="radio" name="エンジン" value="ティア3"> ティア3</label>
+        <label><input type="radio" name="エンジン" value="ティア4"> ティア4</label>
+        <label><input type="radio" name="エンジン" value="ティア5"> ティア5</label>
+      </div>
+    </div>
+
+    <div class="section">
+      <label>ブレーキ</label>
+      <div class="radio-group">
+        <label><input type="radio" name="ブレーキ" value="ティア1"> ティア1</label>
+        <label><input type="radio" name="ブレーキ" value="ティア2"> ティア2</label>
+        <label><input type="radio" name="ブレーキ" value="ティア3"> ティア3</label>
+      </div>
+    </div>
+
+    <div class="section">
+      <label>トランスミッション</label>
+      <div class="radio-group">
+        <label><input type="radio" name="トランスミッション" value="ティア1"> ティア1</label>
+        <label><input type="radio" name="トランスミッション" value="ティア2"> ティア2</label>
+        <label><input type="radio" name="トランスミッション" value="ティア3"> ティア3</label>
+        <label><input type="radio" name="トランスミッション" value="ティア4"> ティア4</label>
+      </div>
+    </div>
+
+    <div class="section">
+      <label>サスペンション</label>
+      <div class="radio-group">
+        <label><input type="radio" name="サスペンション" value="ティア1"> ティア1</label>
+        <label><input type="radio" name="サスペンション" value="ティア2"> ティア2</label>
+        <label><input type="radio" name="サスペンション" value="ティア3"> ティア3</label>
+        <label><input type="radio" name="サスペンション" value="ティア4"> ティア4</label>
+        <label><input type="radio" name="サスペンション" value="ティア5"> ティア5</label>
+      </div>
+    </div>
+
+    <div class="section">
+      <label><input type="checkbox" name="アーマー" value="ON"> アーマー</label><br>
+      <label><input type="checkbox" name="ターボ" value="ON"> ターボ</label><br>
+      <label><input type="checkbox" name="ハーネス" value="ON"> ハーネス</label><br>
+      <label><input type="checkbox" name="NOS" value="ON"> NOS</label>
+    </div>
+
+    <button type="submit">記録する</button>
+    <div id="message"></div>
+  </form>
+
+  <!-- 検索フォーム -->
+  <form id="searchForm">
+    <h2>記録検索</h2>
+    <input type="text" id="searchKeyword" placeholder="車両番号 または オーナー名" class="short-field" required>
+    <button type="submit">検索する</button>
+    <div id="searchResults"></div>
+  </form>
+
+  <script>
+    const scriptURL = "https://script.google.com/macros/s/AKfycbwORcznJZJP_VwmKQMaot5hkNWlENQsQHRGKKr2OQnfI7x4rAH8U4NQ5G-G_SFSmd4c/exec";
+
+    // 記録フォーム送信処理
+    document.getElementById('customForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const form = event.target;
+      const formData = new FormData(form);
+      const carNumber = formData.get("車両番号").toUpperCase();
+      formData.set("車両番号", carNumber);
+
+      fetch(scriptURL, {
+        method: "POST",
+        body: formData,
+        credentials: "include"
+      })
+      .then(res => res.text())
+      .then(result => {
+        document.getElementById("message").textContent = result;
+        form.reset();
+      })
+      .catch(error => {
+        document.getElementById("message").textContent = "送信に失敗しました: " + error.message;
+      });
+    });
+
+    // 検索フォーム処理
+    document.getElementById('searchForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const keyword = document.getElementById("searchKeyword").value.trim().toUpperCase();
+
+      fetch(`${scriptURL}?query=${encodeURIComponent(keyword)}`, {
+        credentials: "include"
+      })
+      .then(res => res.json())
+      .then(data => {
+        const resultDiv = document.getElementById("searchResults");
+        if (data.length === 0) {
+          resultDiv.innerHTML = "一致する記録はありません。";
+          return;
+        }
+
+        const html = data.map(row => `
+          <div style="border-bottom:1px solid #ccc; padding: 8px; text-align:left;">
+            <strong>車両番号:</strong> ${row[2]}<br>
+            <strong>オーナー名:</strong> ${row[3]}<br>
+            <strong>エンジン:</strong> ${row[4]}<br>
+            <strong>ブレーキ:</strong> ${row[5]}<br>
+            <strong>トランスミッション:</strong> ${row[6]}<br>
+            <strong>サスペンション:</strong> ${row[7]}<br>
+            <strong>アーマー:</strong> ${row[8]}<br>
+            <strong>ターボ:</strong> ${row[9]}<br>
+            <strong>ハーネス:</strong> ${row[10]}<br>
+            <strong>NOS:</strong> ${row[11]}<br>
+          </div>
+        `).join("");
+        resultDiv.innerHTML = html;
+      })
+      .catch(error => {
+        document.getElementById("searchResults").textContent = "検索に失敗しました: " + error.message;
+      });
+    });
+  </script>
+</body>
+</html>
